@@ -1,0 +1,27 @@
+{
+  "name": "line-works-bot01-node",
+  "main": "server.js",
+  "description": "LINE WORKS Bot01 node.js",
+  "version": "0.1.0",
+  "private": false,
+  "engines": {
+    "node": "10.*"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shotamaco/line-works-bot01-node"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.x",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "querystring": "^0.2.0",
+    "request": "^2.88.0"
+  },
+  "author": "shotamaco"
+}
