@@ -35,7 +35,7 @@ module.exports = class BotMessageService {
       // LINE WORKS にメッセージを送信するリクエスト
       request.post(this._createMessage(res), (error, response, body) => {
           if (error) {
-            console.log('BotService.send error')
+            console.log('BotService.send error');
             console.log(error);
           }
           console.log(body);
@@ -108,7 +108,7 @@ module.exports = class BotMessageService {
         }
 
         console.log(CALL_BACK_TYPE.message);
-        res.content = { type: 'text', text: 'どーもーーー。' };
+        res.content = { type: 'text', text: 'からの〜〜〜。' };
         break;
 
       case CALL_BACK_TYPE.join:
@@ -131,7 +131,6 @@ module.exports = class BotMessageService {
         //  ・メンバーが Bot をトークルームから退室させた
         //  ・何らかの理由で複数人のトークルームが解散した
         console.log(CALL_BACK_TYPE.leave);
-        res.content = { type: 'text', text: 'お邪魔しました！' };
         break;
 
       case CALL_BACK_TYPE.joined: {
@@ -161,6 +160,7 @@ module.exports = class BotMessageService {
         //  ・メッセージ送信(Carousel)
         //  ・メッセージ送信(Image Carousel)
         //  ・トークリッチメニュー
+        // ※次回の記事で作り込みます。
         console.log(CALL_BACK_TYPE.postback);
         break;
 

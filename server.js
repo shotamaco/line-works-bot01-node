@@ -49,13 +49,13 @@ app.post('/callback', async function (req, res, next) {
 function createJWT() {
   const iss = process.env.SERVER_ID;
   const iat = Math.floor(Date.now() / 1000);
-  const exp = iat + (60);　
+  const exp = iat + 60;
   const cert = process.env.PRIVATE_KEY;
 
   return new Promise((resolve, reject) => {
     jwt.sign({ iss: iss, iat: iat, exp: exp }, cert, { algorithm: 'RS256' }, (error, jwtData) => {
       if (error) {
-        console.log('createJWT error')
+        console.log('createJWT error');
         reject(error);
       } else {
         resolve(jwtData);
