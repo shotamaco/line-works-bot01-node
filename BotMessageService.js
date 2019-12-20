@@ -9,6 +9,13 @@ const CALL_BACK_TYPE = {
   postback : 'postback',
 };
 
+const MESSAGE_CONTENT_TYPE = {
+  text : 'text',
+  location : 'location',
+  sticker : 'sticker',
+  image : 'image'
+};
+
 /**
  * BotMessageServiceクラス
  */
@@ -170,5 +177,32 @@ module.exports = class BotMessageService {
     }
 
     return res;
+  }
+}
+
+class BotMessageContent {
+  
+  /**
+   * LINE WORKS にBotメッセージを送信します。
+   * @param {object} callbackEvent リクエストのコールバックイベント
+   */
+  async send(content) {
+    switch (content.type) {
+      case MESSAGE_CONTENT_TYPE.text:
+        return { type: 'text', text: 'からの〜〜〜。' };
+
+      case MESSAGE_CONTENT_TYPE.location:
+        return { type: 'text', text: 'からの〜〜〜。' };
+
+      case MESSAGE_CONTENT_TYPE.sticker:
+        return { type: 'text', text: 'からの〜〜〜。' };
+
+      case MESSAGE_CONTENT_TYPE.image:
+        return { type: 'text', text: 'からの〜〜〜。' };
+      
+      default:
+        console.log('知らないコールバックですね。。。');
+        return null;
+    }
   }
 }
