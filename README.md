@@ -10,7 +10,7 @@ LINE WORKS Bot API をnode.jsでひと通り触ってみるプログラムです
   * [Requirements](#requirements)
   * [Installation](#installation)
   * [Usage](#usage)
-  * [Link](#Link)
+  * [Link](#link)
   * [License](#license)
   
 # Requirements
@@ -50,7 +50,11 @@ ngrok http 3000
 
 4. 環境変数 (.env)の修正する
 
-　　2で発行した接続情報を設定する。
+   「.env.sample」のファイル名を「.env」に変更する
+   
+　　2で発行した接続情報を設定する
+  
+　　IMAGE_FILE_HOSTは画像を表示する際のURLで使用する
   
 ```
 API_ID="API ID"
@@ -58,6 +62,7 @@ CONSUMER_KEY="Consumer key"
 SERVER_ID="Server ID"
 PRIVATE_KEY="認証キー"
 BOT_NO="Bot No"
+IMAGE_FILE_HOST="ホスト名（ngrogで取得したホスト https://xxxxx.io）"
 ```
 
 5. VS Code debug start
