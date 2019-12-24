@@ -214,7 +214,8 @@ module.exports = class BotMessageService {
               || this._getListTemplateContent(callbackEvent.content.postback, callbackEvent.content.text)
               || this._getCarouselContent(callbackEvent.content.postback, callbackEvent.content.text)
               || this._getImageCarouselContent(callbackEvent.content.postback, callbackEvent.content.text)
-              || this._getQuickReplyContent(callbackEvent.content.postback, callbackEvent.content.text);
+              || this._getQuickReplyContent(callbackEvent.content.postback, callbackEvent.content.text)
+              || this._getLinkContent(callbackEvent.content.postback, callbackEvent.content.text);
             if (content) {
               res.content = content;
             } else {
@@ -225,18 +226,31 @@ module.exports = class BotMessageService {
     
           case CALL_BACK_MESSAGE_CONTENT_TYPE.location:
             // 場所のコールバックは場所データをテキストで返す
-            res.content = { type: MESSAGE_CONTENT_TYPE.text, text: `住所：${callbackEvent.content.address}\n緯度：${callbackEvent.content.latitude}\n経度：${callbackEvent.content.longitude}` };
+            res.content = { 
+              type: MESSAGE_CONTENT_TYPE.text, 
+              text: `住所：${callbackEvent.content.address}\n緯度：${callbackEvent.content.latitude}\n経度：${callbackEvent.content.longitude}`,
+              quickReply: this._getQuickReplyItems()
+             };
             break;
     
           case CALL_BACK_MESSAGE_CONTENT_TYPE.sticker:
             // スタンプのコールバックはおうむ返し（同じスタンプを返す）
             // ※使えないスタンプがあるようです（LINE WORKSぽいスタンプは使えない。。。）
-            res.content = { type: MESSAGE_CONTENT_TYPE.sticker, packageId: callbackEvent.content.packageId, stickerId: callbackEvent.content.stickerId };
+            res.content = { 
+              type: MESSAGE_CONTENT_TYPE.sticker, 
+              packageId: callbackEvent.content.packageId, 
+              stickerId: callbackEvent.content.stickerId,
+              quickReply: this._getQuickReplyItems()
+            };
             break;
     
           case CALL_BACK_MESSAGE_CONTENT_TYPE.image:
             // 画像のコールバックはおうむ返し（同じ画像を返す）
-            res.content = { type: MESSAGE_CONTENT_TYPE.image, resourceId: callbackEvent.content.resourceId };
+            res.content = { 
+              type: MESSAGE_CONTENT_TYPE.image, 
+              resourceId: callbackEvent.content.resourceId,
+              quickReply: this._getQuickReplyItems()
+            };
             break;
           
           default:
@@ -285,6 +299,22 @@ module.exports = class BotMessageService {
     return res;
   }
   
+  /**
+   * Link コンテンツを返します。
+   * @param {Array} conditions 条件
+   * @return {object} コンテンツ
+   */
+  _getLinkContent(...conditions) {
+    if (!conditions.some(condition => condition && condition.toUpperCase() === 'U')) return;
+    return { 
+      type: MESSAGE_CONTENT_TYPE.link, 
+      contentText: 'Link からの〜〜〜。',
+      linkText: 'LINE WORKS',
+      link: 'https://line.worksmobile.com/jp/',
+      quickReply: this._getQuickReplyItems()
+    };
+  }
+
   /**
    * Quick reply コンテンツを返します。
    * @param {Array} conditions 条件
@@ -399,7 +429,8 @@ module.exports = class BotMessageService {
     return { 
       type: MESSAGE_CONTENT_TYPE.buttonTemplate, 
       contentText: 'ButtonTemplate からの〜〜〜。',
-      actions: this._getButtonActions()
+      actions: this._getButtonActions(),
+      //quickReply: this._getQuickReplyItems()
     };
   }
 
@@ -471,7 +502,8 @@ module.exports = class BotMessageService {
       // 最大4つの要素を指定可能
       elements: this._getListElements(),
       // 最大2*2の配列でアクションを指定可能
-      actions: this._getListActions()
+      actions: this._getListActions(),
+      //quickReply: this._getQuickReplyItems()
     };
   }
 
@@ -579,7 +611,8 @@ module.exports = class BotMessageService {
       type: MESSAGE_CONTENT_TYPE.carousel,
       //imageAspectRatio: '',
       //imageSize: '',
-      columns: this._getCarouselColumns()
+      columns: this._getCarouselColumns(),
+      //quickReply: this._getQuickReplyItems()
     };
   }
 
@@ -681,7 +714,8 @@ module.exports = class BotMessageService {
     if (!conditions.some(condition => condition && (condition.toUpperCase() === 'I' || condition === MESSAGE_CONTENT_TYPE.imageCarousel))) return;
     return { 
       type: MESSAGE_CONTENT_TYPE.imageCarousel,
-      columns: this._getImageCarouselColumns()
+      columns: this._getImageCarouselColumns(),
+      //quickReply: this._getQuickReplyItems()
     };
   }
 
