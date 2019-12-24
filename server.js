@@ -11,6 +11,8 @@ app.listen(port, function() {
     console.log('To view your app, open this link in your browser: http://localhost:' + port);
 });
 
+app.use(express.static(__dirname + '/public'));
+
 app.use(express.json({verify:(req, res, buf, encoding) => {
   // メッセージの改ざん防止
   const data = crypto.createHmac('sha256', process.env.API_ID).update(buf).digest('base64');
