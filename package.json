@@ -19,7 +19,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.x",
     "https": "^1.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "querystring": "^0.2.0",
     "request": "^2.88.0"
   },
